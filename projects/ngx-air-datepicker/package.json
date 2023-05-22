@@ -1,12 +1,13 @@
 {
   "name": "ngx-air-datepicker",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "peerDependencies": {
     "@angular/common": "^15.1.0",
     "@angular/core": "^15.1.0"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "air-datepicker": "^3.3.5"
   },
   "sideEffects": false
 }

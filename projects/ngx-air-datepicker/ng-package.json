@@ -3,5 +3,6 @@
   "dest": "../../dist/ngx-air-datepicker",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": ["air-datepicker"]
 }
