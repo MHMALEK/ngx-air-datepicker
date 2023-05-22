@@ -1,53 +1,41 @@
-<!-- Show content slot if it was available -->
 <div class="relative" [ngClass]="parentClassList">
   <ng-container
-    *ngIf="inputCustom"
-    [ngTemplateOutlet]="inputCustom.templateRef"
+    *ngIf="prefixCustom"
+    [ngTemplateOutlet]="prefixCustom.templateRef"
   ></ng-container>
 
-  <input
-    *ngIf="!inputCustom"
-    type="text"
-    [id]="id"
-    [placeholder]="placeholder"
-    #datepicker
-    [readonly]="readonlyInput"
-    [name]="name"
-    (blur)="_onInputBlur($event)"
-    (click)="_onInputClick($event)"
-    (focus)="_onInputFocus($event)"
-    [ngClass]="inputClasses"
-    [attr.data-testID]="testID"
-  />
+  <ng-container *ngIf="!labelCustom?.templateRef && label">
+    <label for="datepicker" [ngClass]="{labelClasses}">{{ label }} </label>
+  </ng-container>
 
   <ng-container
-    *ngIf="labelContent"
-    [ngTemplateOutlet]="labelContent.templateRef"
+    *ngIf="labelCustom"
+    [ngTemplateOutlet]="labelCustom.templateRef"
   ></ng-container>
 
-  <!-- show default label -->
-  <ng-container *ngIf="!labelContent?.templateRef && label">
-    <label
-      for="datepicker"
-      [ngClass]="{
-        'peer-focus:text-sky-500 ': !error,
-        'peer-focus:text-red-600': error && touched
-      }"
-      >{{ label }}
-    </label>
-  </ng-container>
-
-  <ng-container>
-    <!-- Show prefix slot if it was available -->
+  <div>
     <ng-container
-      *ngIf="prefix"
-      [ngTemplateOutlet]="prefix.templateRef"
+      *ngIf="iconCustom"
+      [ngTemplateOutlet]="iconCustom.templateRef"
     ></ng-container>
 
-    <!-- Show appendix slot if it was available -->
+    <input
+      type="text"
+      [id]="id"
+      [placeholder]="placeholder"
+      #datepicker
+      [readonly]="readonlyInput"
+      [name]="name"
+      (blur)="_onInputBlur($event)"
+      (click)="_onInputClick($event)"
+      (focus)="_onInputFocus($event)"
+      [ngClass]="inputClasses"
+      [attr.data-testID]="testID"
+    />
+
     <ng-container
-      *ngIf="appendix"
-      [ngTemplateOutlet]="appendix.templateRef"
+      *ngIf="appendixCustom"
+      [ngTemplateOutlet]="appendixCustom.templateRef"
     ></ng-container>
-  </ng-container>
+  </div>
 </div>

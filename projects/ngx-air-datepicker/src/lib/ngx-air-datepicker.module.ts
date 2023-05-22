@@ -8,7 +8,7 @@ import { NgxAirDatepickerComponent } from './components/datepicker/datepicker.co
 import { CustomLabelDirective } from './directives/custom-label.directive';
 import { NgxAirDatePickerPrefix } from './directives/prefix.directive';
 import { NgxAirDatePickerApendix } from './directives/appendix.directive';
-import { CustomInputDirective } from './directives/custom-input.directive';
+import { CustomIconDirective } from './directives/custom-icon.directive';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { CustomInputDirective } from './directives/custom-input.directive';
     CustomLabelDirective,
     NgxAirDatePickerApendix,
     NgxAirDatePickerPrefix,
-    CustomInputDirective,
+    CustomIconDirective,
   ],
   imports: [CommonModule, FormsModule],
 
@@ -29,7 +29,7 @@ import { CustomInputDirective } from './directives/custom-input.directive';
     CustomLabelDirective,
     NgxAirDatePickerApendix,
     NgxAirDatePickerPrefix,
-    CustomInputDirective,
+    CustomIconDirective,
   ],
 })
 export class NgxAirDatepickerModule {}
