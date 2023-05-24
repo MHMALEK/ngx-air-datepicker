@@ -4,5 +4,7 @@ import { Directive, TemplateRef } from '@angular/core';
   selector: '[ngxAirDatePickerPrefix]',
 })
 export class NgxAirDatePickerPrefix {
-  constructor(public templateRef: TemplateRef<unknown>) {}
+  constructor(public templateRef: TemplateRef<unknown>) {
+    console.log(templateRef);
+  }
 }

@@ -1,0 +1,40 @@
+<label *ngIf="label && !labelCustom" [for]="id" [ngClass]="labelClasses"
+  >{{ label }}
+</label>
+<div *ngIf="labelCustom">
+  <ng-container [ngTemplateOutlet]="labelCustom.templateRef"></ng-container>
+</div>
+
+<div class="relative" [ngClass]="parentClassList">
+  <div
+    class="absolute inset-y-0 left-0 flex items-center pl-3"
+    *ngIf="prefixCustom"
+  >
+    <ng-container [ngTemplateOutlet]="prefixCustom.templateRef"> </ng-container>
+  </div>
+
+  <div>
+    <input
+      type="text"
+      [id]="id"
+      [placeholder]="placeholder"
+      #datepicker
+      [readonly]="readonlyInput"
+      [name]="name"
+      (blur)="_onInputBlur($event)"
+      (click)="_onInputClick($event)"
+      (focus)="_onInputFocus($event)"
+      [ngClass]="inputClasses"
+      [attr.data-testID]="testID"
+    />
+
+    <div
+      *ngIf="appendixCustom"
+      class="absolute right-2.5 inset-y-0 flex items-center pr-3"
+    >
+      <ng-container
+        [ngTemplateOutlet]="appendixCustom.templateRef"
+      ></ng-container>
+    </div>
+  </div>
+</div>

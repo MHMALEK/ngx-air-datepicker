@@ -1,9 +1,8 @@
 import {
   Component,
-  ContentChild,
+  ElementRef,
   Input,
   Output,
-  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 
@@ -12,13 +11,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import AirDatepicker, { AirDatepickerOptions } from 'air-datepicker';
 import localeEn from 'air-datepicker/locale/en';
 
-import { NgxAirDatePickerApendix } from '../../directives/appendix.directive';
-import { CustomIconDirective } from '../../directives/custom-icon.directive';
-import { CustomLabelDirective } from '../../directives/custom-label.directive';
-import { NgxAirDatePickerPrefix } from '../../directives/prefix.directive';
-
+export const ELEMENT_SELECTOR = 'ngxAirDatePickerInput';
 @Component({
-  selector: 'ngx-air-datepicker-component',
+  selector: 'ngx-air-datepicker-custom-component',
   templateUrl: 'datepicker.component.html',
   styleUrls: ['datepicker.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -26,48 +21,27 @@ import { NgxAirDatePickerPrefix } from '../../directives/prefix.directive';
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: NgxAirDatepickerComponent,
+      useExisting: NgxAirDatepickerNoUIComponent,
     },
   ],
 })
-export class NgxAirDatepickerComponent implements ControlValueAccessor {
-  @ViewChild('datepicker') private input: {
-    nativeElement: HTMLInputElement;
-  } | null = null;
+export class NgxAirDatepickerNoUIComponent implements ControlValueAccessor {
+  constructor(private elRef: ElementRef) {
+    this.hostElement = this.elRef.nativeElement;
+  }
 
   // datepicker data
   selectedDates: Array<Date> | undefined = [];
   touched: boolean = false;
-  isDisabled: boolean = false;
   dataPickerInstance: AirDatepicker | null = null;
-
-  // general inputs
-  @Input() label: string = '';
-  @Input() name: string = 'datepicker';
-  @Input() placeholder: string = '';
-  @Input() testID: string = 'NgxAirDatepickerComponent';
-  @Input() id: string = 'ngx-datepicker';
+  hostElement: any;
+  input: HTMLInputElement | undefined;
 
   // error handler
   @Input() hasError: boolean = false;
 
-  // CSS and UI
-  @Input() parentClassList: Record<string, boolean> | undefined = {};
-  @Input() inputClassList: Record<string, boolean> = {};
-  @Input() labelClassList: Record<string, boolean> = {};
-
   // airdatepicker config
   @Input() airDatepickerConfig: Partial<AirDatepickerOptions> = {};
-
-  // custom icon
-  @ContentChild(CustomIconDirective) iconCustom!: CustomIconDirective;
-  // custom  label
-  @ContentChild(CustomLabelDirective) labelCustom!: CustomLabelDirective;
-  // custom prefix
-  @ContentChild(NgxAirDatePickerPrefix) prefixCustom!: NgxAirDatePickerPrefix;
-  // custom appendix
-  @ContentChild(NgxAirDatePickerApendix)
-  appendixCustom!: NgxAirDatePickerApendix;
 
   @Output() getRawSelectedDates = new EventEmitter();
   @Output() onInputClick = new EventEmitter();
@@ -77,41 +51,14 @@ export class NgxAirDatepickerComponent implements ControlValueAccessor {
   @Output() getInputElementRef = new EventEmitter();
   @Output() getAirDatePickerInstance = new EventEmitter();
 
-  @Input() readonlyInput: boolean = false;
-  @Input() disabled: boolean = this.isDisabled;
-
   // handle multiselect
   public isMultipleDateInput: number | boolean = false;
 
   // handle range
   public isRange: boolean = false;
 
-  get inputClasses() {
-    return {
-      ...this.inputClassList,
-      'ngx-airdatepicker-input--default': !this.hasError,
-      'ngx-airdatepicker-input--error': this.hasError && this.touched,
-    };
-  }
-
-  get parentClasses() {
-    return {
-      ...this.parentClassList,
-      'ngx-airdatepicker-container--default': !this.hasError,
-      'ngx-airdatepicker-container--error': this.hasError && this.touched,
-    };
-  }
-
-  get labelClasses() {
-    return {
-      ...this.labelClassList,
-      'ngx-airdatepicker-label--default': !this.hasError,
-      'ngx-airdatepicker-label--error': this.hasError && this.touched,
-    };
-  }
-
   addDatePickerToInput() {
-    if (this.checkIfInputExist() && this.input) {
+    if (this.checkAndAssignIfInputExist() && this.input) {
       const airDatepickerConfig: Partial<AirDatepickerOptions> = {
         // @ts-ignore
         locale: localeEn.default,
@@ -123,7 +70,7 @@ export class NgxAirDatepickerComponent implements ControlValueAccessor {
         ...this.airDatepickerConfig,
       };
 
-      this.dataPickerInstance = new AirDatepicker(this.input.nativeElement, {
+      this.dataPickerInstance = new AirDatepicker(this.input, {
         ...airDatepickerConfig,
       });
 
@@ -135,11 +82,19 @@ export class NgxAirDatepickerComponent implements ControlValueAccessor {
     }
   }
 
-  showError() {
-    throw new Error('Input did not found on element');
+  showError(error?: Error) {
+    throw new Error('Input did not found on element' + error);
   }
 
-  checkIfInputExist() {
+  checkAndAssignIfInputExist() {
+    try {
+      this.input = this.hostElement.querySelector(
+        `[${ELEMENT_SELECTOR}]`
+      );
+    } catch (e: any) {
+      this.showError(e);
+    }
+
     return !!this.input;
   }
 
@@ -172,21 +127,5 @@ export class NgxAirDatepickerComponent implements ControlValueAccessor {
   }
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
-  }
-
-  // methods output
-  _onInputClick($event: MouseEvent) {
-    this.onInputClick.emit($event);
-  }
-  _onInputFocus($event: FocusEvent) {
-    this.onInputFocus.emit($event);
-  }
-  _onInputBlur($event: FocusEvent) {
-    this.touched = true;
-    this.onTouched();
-    this.onInputBlur.emit($event);
-  }
-  _onContainerClick($event: MouseEvent) {
-    this.onContainerClick.emit($event);
   }
 }

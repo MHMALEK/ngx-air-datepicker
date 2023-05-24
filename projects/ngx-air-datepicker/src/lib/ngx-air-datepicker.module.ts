@@ -2,34 +2,52 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { NgxAirDatepickerMultiSelectComponent } from './components/datepicker-multi-select/datepicker-multi-select.component';
-import { NgxAirDatepickerDatepickerRangeComponent } from './components/datepicker-range/datepicker-range.component';
-import { NgxAirDatepickerComponent } from './components/datepicker/datepicker.component';
-import { CustomLabelDirective } from './directives/custom-label.directive';
-import { NgxAirDatePickerPrefix } from './directives/prefix.directive';
-import { NgxAirDatePickerApendix } from './directives/appendix.directive';
-import { CustomIconDirective } from './directives/custom-icon.directive';
+import { NgxAirDatepickerNoUIMultiSelectComponent } from './components/datepicker-no-ui/datepicker-multi-select/datepicker-multi-select.component';
+import { NgxAirDatepickerNoUIRangeComponent } from './components/datepicker-no-ui/datepicker-range/datepicker-range.component';
+import { NgxAirDatepickerNoUIComponent } from './components/datepicker-no-ui/datepicker.component';
+
+import { NgxAirDatepickerComponent } from './components/datepicker-with-ui/datepicker.component';
+import { NgxAirDatepickerMultiSelectComponent } from './components/datepicker-with-ui/datepicker-multi-select/datepicker-multi-select.component';
+import { NgxAirDatepickerDatepickerRangeComponent } from './components/datepicker-with-ui/datepicker-range/datepicker-range.component';
+
+import { NgxAirDatePickerPrefix } from './components/datepicker-with-ui/directives/prefix.directive';
+import { NgxAirDatePickerApendix } from './components/datepicker-with-ui/directives/appendix.directive';
+import { NgxAirDatePickerCustomLabelDirective } from './components/datepicker-with-ui/directives/custom-label.directive';
 
 @NgModule({
   declarations: [
+    // with no UI - only Angular wrapper
+    NgxAirDatepickerNoUIComponent,
+    NgxAirDatepickerNoUIMultiSelectComponent,
+    NgxAirDatepickerNoUIRangeComponent,
+
+    // with UI
     NgxAirDatepickerComponent,
     NgxAirDatepickerDatepickerRangeComponent,
     NgxAirDatepickerMultiSelectComponent,
-    CustomLabelDirective,
-    NgxAirDatePickerApendix,
+
+    // directives for UI
     NgxAirDatePickerPrefix,
-    CustomIconDirective,
+    NgxAirDatePickerApendix,
+    NgxAirDatePickerCustomLabelDirective,
   ],
   imports: [CommonModule, FormsModule],
 
   exports: [
+    // with no UI - only Angular wrapper
+    NgxAirDatepickerNoUIComponent,
+    NgxAirDatepickerNoUIMultiSelectComponent,
+    NgxAirDatepickerNoUIRangeComponent,
+
+    // with UI
     NgxAirDatepickerComponent,
     NgxAirDatepickerDatepickerRangeComponent,
     NgxAirDatepickerMultiSelectComponent,
-    CustomLabelDirective,
-    NgxAirDatePickerApendix,
+
+    // directives for UI
     NgxAirDatePickerPrefix,
-    CustomIconDirective,
+    NgxAirDatePickerApendix,
+    NgxAirDatePickerCustomLabelDirective,
   ],
 })
 export class NgxAirDatepickerModule {}

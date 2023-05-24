@@ -1,27 +1,108 @@
-# NgxAirDatepicker
+# NgxAirDatepickerComponent
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.6.
+NgxAirDatepickerComponent is an Angular component that provides a user-friendly datepicker interface. It is built using the AirDatepicker library and offers various configuration options and customization features.
 
-## Development server
+## Installation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+You can install NgxAirDatepickerComponent using npm:
 
-## Code scaffolding
+bashCopy code
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+`npm install ngx-air-datepicker-component`
 
-## Build
+## Usage
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1.  Import the NgxAirDatepickerComponent module into your Angular module:
 
-## Running unit tests
+typescriptCopy code
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+`import { NgxAirDatepickerModule } from 'ngx-air-datepicker-component';
 
-## Running end-to-end tests
+@NgModule({
+imports: [
+NgxAirDatepickerModule,
+// other imports
+],
+// other module configurations
+})
+export class YourModule { }`
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1.  Use the NgxAirDatepickerComponent in your component's template:
 
-## Further help
+htmlCopy code
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+`<ngx-air-datepicker-component></ngx-air-datepicker-component>`
+
+## API
+
+### Inputs
+
+- `label` (string): The label text for the datepicker.
+- `name` (string): The name attribute for the datepicker input element.
+- `placeholder` (string): The placeholder text for the datepicker input element.
+- `testID` (string): An optional ID for testing purposes.
+- `id` (string): The ID attribute for the datepicker input element.
+- `hasError` (boolean): Indicates whether the datepicker has an error state.
+- `parentClassList` (Record<string, boolean>): Additional CSS classes for the parent container element.
+- `inputClassList` (Record<string, boolean>): Additional CSS classes for the input element.
+- `labelClassList` (Record<string, boolean>): Additional CSS classes for the label element.
+- `airDatepickerConfig` (Partial<AirDatepickerOptions>): Configuration options for the underlying AirDatepicker library.
+- `readonlyInput` (boolean): Indicates whether the datepicker input is read-only.
+- `disabled` (boolean): Indicates whether the datepicker is disabled.
+
+### Outputs
+
+- `getRawSelectedDates` (EventEmitter): Event emitted when the selected dates are retrieved.
+- `onInputClick` (EventEmitter): Event emitted when the input element is clicked.
+- `onInputFocus` (EventEmitter): Event emitted when the input element is focused.
+- `onInputBlur` (EventEmitter): Event emitted when the input element loses focus.
+- `onContainerClick` (EventEmitter): Event emitted when the datepicker container is clicked.
+- `getInputElementRef` (EventEmitter): Event emitted when the input element reference is obtained.
+- `getAirDatePickerInstance` (EventEmitter): Event emitted when the AirDatepicker instance is obtained.
+
+### Methods
+
+- `writeValue(value: string | Date[]): void`: Writes a value to the datepicker input. Accepts a string or an array of Date objects.
+- `registerOnChange(fn: () => void): void`: Registers a callback function to be called when the value of the datepicker changes.
+- `registerOnTouched(fn: () => void): void`: Registers a callback function to be called when the datepicker input is touched.
+
+## Examples
+
+### Basic Usage
+
+htmlCopy code
+
+`<ngx-air-datepicker-component
+label="Select a Date"
+placeholder="Choose a date"
+
+> </ngx-air-datepicker-component>`
+
+### Customization
+
+htmlCopy code
+
+`<ngx-air-datepicker-component
+label="Select a Date"
+placeholder="Choose a date"
+[parentClassList]="{ 'my-custom-container': true }"
+[inputClassList]="{ 'my-custom-input': true }"
+[labelClassList]="{ 'my-custom-label': true }"
+
+> </ngx-air-datepicker-component>`
+
+### Handling Events
+
+htmlCopy code
+
+`<ngx-air-datepicker-component
+(onInputClick)="handleInputClick()"
+(onInputFocus)="handleInputFocus()"
+(onInputBlur)="handleInputBlur()"
+(onContainerClick)="handleContainerClick()"
+(getInputElementRef)="handleInputElementRef($event)"
+  (getAirDatePickerInstance)="handleAirDatePickerInstance($event)"
+
+> </ngx-air-datepicker-component>`
+
+Note: This documentation assumes that you have already set up the necessary dependencies and imports required for using Angular and the AirDatepicker library in your project.
