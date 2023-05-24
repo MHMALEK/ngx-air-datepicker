@@ -159,6 +159,79 @@ htmlCopy code
 
 Note: This documentation assumes that you have already set up the necessary dependencies and imports required for using Angular and the AirDatepicker library in your project.
 
+## Range Selection and Multiple Date Selection Components
+
+In addition to the NgxAirDatepickerComponent and NgxAirDatepickerCustomComponent, the library also provides components that support range selection and multiple date selection. These components offer the same functionality as their counterparts but with specific behaviors for selecting date ranges or multiple dates.
+
+### Range Selection Component
+
+The NgxAirDatepickerDatepickerRangeComponent allows you to select a date range. It extends the NgxAirDatepickerComponent and provides the necessary configuration for range selection.
+
+typescriptCopy code
+
+`import { Component } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+
+import { NgxAirDatepickerComponent } from '../datepicker.component';
+
+@Component({
+  selector: 'ngx-air-datepicker-range-component',
+  templateUrl: '../datepicker.component.html',
+  styleUrls: ['../datepicker.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: NgxAirDatepickerDatepickerRangeComponent,
+    },
+  ],
+})
+export class NgxAirDatepickerDatepickerRangeComponent extends NgxAirDatepickerComponent {
+  override isRange = true;
+}` 
+
+To use the range selection component, import it into your module and use it in your templates:
+
+htmlCopy code
+
+`<ngx-air-datepicker-range-component></ngx-air-datepicker-range-component>` 
+
+### Multiple Date Selection Component
+
+The NgxAirDatepickerMultiSelectComponent allows you to select multiple dates. It extends the NgxAirDatepickerComponent and enables the multiple date selection behavior.
+
+ code
+
+```
+import { Component } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgxAirDatepickerComponent } from '../datepicker.component';
+
+@Component({
+  selector: 'ngx-air-datepicker-multi-select-component',
+  templateUrl: '../datepicker.component.html',
+  styleUrls: ['../datepicker.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: NgxAirDatepickerMultiSelectComponent,
+    },
+  ],
+})
+export class NgxAirDatepickerMultiSelectComponent extends NgxAirDatepickerComponent {
+  override isMultipleDateInput: number | boolean = true;
+}
+``` 
+
+To use the multiple date selection component, import it into your module and use it in your templates:
+
+
+```<ngx-air-datepicker-multi-select-component></ngx-air-datepicker-multi-select-component>``` 
+
+Both the range selection and multiple date selection components are designed to provide enhanced date selection capabilities while maintaining the same flexibility for customization and usage with custom markup.
+
+
 ## Custom Label, Prefix, and Appendix Templates
 
 NgxAirDatepickerComponent provides support for customizing the label, prefix, and appendix elements using `ng-template` and `ng-content` directives. These directives allow you to define your own custom markup for these elements and seamlessly integrate them with the datepicker component.
@@ -167,7 +240,7 @@ NgxAirDatepickerComponent provides support for customizing the label, prefix, an
 
 To add a custom label to the NgxAirDatepickerComponent, you can use the `NgxAirDatePickerCustomLabelDirective` directive and define your label content within an `ng-template`:
 
-htmlCopy code
+html
 
 ```
 <ngx-air-datepicker-component>
@@ -175,7 +248,7 @@ htmlCopy code
     <label class="custom-label">Custom Label:</label>
   </ng-template>
 </ngx-air-datepicker-component>
-``` 
+`` 
 
 In this example, the `ngxAirDatePickerCustomLabel` directive is used to provide a custom label. You can modify the `ng-template` content to suit your specific requirements, apply your own CSS classes, or include any desired markup.
 
@@ -303,6 +376,46 @@ export class YourModule { }
 
 Note: Make sure to add the `ngxAirDatePickerInput` attribute to the input element that you want to associate with the datepicker functionality.
 
+
+#### Range Selection Component (Custom Version)
+
+
+
+```<ngx-air-datepicker-custom-component>
+  <input type="text" ngxAirDatePickerInput>
+</ngx-air-datepicker-custom-component>
+``` 
+
+In this example, the NgxAirDatepickerCustomComponent is used as the container for the custom input element. You can provide your own markup for the input element within the component.
+
+#### Multiple Date Selection Component (Custom Version)
+
+ ```html
+ <ngx-air-datepicker-multi-select-custom-component>
+ <label>be creative with your own markup</label>
+<div>Something new?</div>
+ <input
+    type="text"
+    ngxAirDatePickerInput
+    [placeholder]="'Choose a date'"
+    [class]="'my-custom-input'" />
+    <p>I'm new! Do as you wish </p>
+ </ngx-air-datepicker-multi-select-custom-component>
+``` 
+
+```html
+<ngx-air-datepicker-range-custom-component>
+<label>be creative with your own markup</label>
+<input
+    type="text"
+    ngxAirDatePickerInput
+    [placeholder]="'Choose a date'"
+    [class]="'my-custom-input'" />
+    <p>I'm new! Do as you wish </p>
+</ngx-air-datepicker-range-custom-component>
+```
+
+
 ## API
 
 The NgxAirDatepickerCustomComponent provides the same API as NgxAirDatepickerComponent. Please refer to the [NgxAirDatepickerComponent documentation](#ngxairdatepickercomponent-documentation) for detailed information about the inputs, outputs, and methods.
@@ -350,6 +463,9 @@ NgxAirDatepickerCustomComponent can also be integrated with Angular Reactive For
 
 That's it! You can now use NgxAirDatepickerCustomComponent to add datepicker functionality to your custom input elements while providing your own markup.
 
+## Note:
+Please note that while the components are built with Tailwind CSS in mind, they can still be used in projects that don't utilize Tailwind CSS. You can manually apply your own CSS classes or override the default styles to match your project's styling guidelines.
+
 ## Feedback and Issues
 
 We welcome any feedback or bug reports regarding NgxAirDatepickerComponent. If you have any suggestions, feature requests, or encounter any issues while using the component, please feel free to reach out to us.
@@ -365,3 +481,4 @@ You can find the source code for NgxAirDatepickerComponent on our GitHub reposit
 If you encounter any issues or have specific bug reports, please submit them on our issue tracker:
 
 [NgxAirDatepickerComponent Issue Tracker](https://github.com/MHMALEK/ngx-air-datepicker/issues)
+
