@@ -4,5 +4,7 @@
   "lib": {
     "entryFile": "src/public-api.ts"
   },
-  "allowedNonPeerDependencies": ["air-datepicker"]
+  "keepLifecycleScripts": true,
+  "allowedNonPeerDependencies": ["air-datepicker"],
+  "assets": ["./assets/css/**/*.css"]
 }

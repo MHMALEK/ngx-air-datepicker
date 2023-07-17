@@ -19,7 +19,10 @@ import { NgxAirDatePickerPrefix } from './directives/prefix.directive';
 @Component({
   selector: 'ngx-air-datepicker-component',
   templateUrl: 'datepicker.component.html',
-  styleUrls: ['datepicker.component.scss'],
+  styleUrls: [
+    'datepicker.component.scss',
+    '../../../../../../node_modules/air-datepicker/air-datepicker.css',
+  ],
   encapsulation: ViewEncapsulation.None,
   providers: [
     {
@@ -145,7 +148,7 @@ export class NgxAirDatepickerComponent implements ControlValueAccessor {
   }
 
   ngAfterViewInit() {
-    console.log(this.labelCustom.templateRef);
+    // console.log(this.labelCustom.templateRef);
     this.addDatePickerToInput();
   }
 
